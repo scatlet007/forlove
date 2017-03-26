@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd" xmlns:tx="http://www.springframework.org/schema/tx">
+
+	<!-- 配置数据库链接池 -->
+	<!-- <bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="url"
+			value="jdbc:mysql://127.0.0.1:3306/db_phoneshop">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="12345"></property>
+	</bean> -->
+	<!-- HikariCP 高性能数据库连接池 -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl"
+			value="jdbc:mysql://localhost:3306/db_phoneshop?useUnicode=true&amp;characterEncoding=utf-8" />
+		<property name="username" value="root" />
+		<property name="password" value="12345" />
+		<!--最大连接超时时间 default：10秒 -->
+		<property name="connectionTimeout" value="10000" />
+		<!--最大空闲超时时间 default：10分钟 -->
+		<property name="idleTimeout" value="600000" />
+		<!--连接池中一个连接的最大生命周期 default：30分钟 -->
+		<property name="maxLifetime" value="1800000 " />
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- Dao注入 -->
+	<bean id="baseDaoImpl" class="shop.dao.impl.BaseDaoImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="personDaoImpl" class="shop.dao.impl.PersonDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"></property>
+	</bean>
+	<bean id="personService" class="shop.service.PersonService">
+		<property name="personDaoImpl" ref="personDaoImpl"></property>
+	</bean>
+	<bean id="adminDaoImpl" class="shop.dao.impl.AdminDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"></property>
+	</bean>
+	<bean id="adminService" class="shop.service.AdminService">
+		<property name="adminDao" ref="adminDaoImpl"></property>
+	</bean>
+	<bean id="phoneDaoImpl" class="shop.dao.impl.PhoneDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"></property>
+	</bean>
+	<bean id="phoneService" class="shop.service.PhoneService">
+		<property name="phoneDao" ref="phoneDaoImpl"></property>
+		<property name="brandDao" ref="brandDaoImpl"></property>
+		<property name="imageDao" ref="imageDaoImpl"></property>
+		<property name="imgsDao" ref="imgsDaoImpl"></property>
+		<property name="phoneDescDao" ref="phoneDescDaoImpl"></property>
+	</bean>
+	<bean id="brandDaoImpl" class="shop.dao.impl.BrandDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"></property>
+	</bean>
+	<bean id="brandService" class="shop.service.BrandService">
+		<property name="brandDao" ref="brandDaoImpl"></property>
+	</bean>
+	<bean id="imageDaoImpl" class="shop.dao.impl.ImageDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"></property>
+	</bean>
+	<bean id="imageService" class="shop.service.ImageService">
+		<property name="imageDao" ref="imageDaoImpl"></property>
+		<property name="imgsDao" ref="imgsDaoImpl"></property>
+	</bean>
+	<bean id="imgsDaoImpl" class="shop.dao.impl.ImgsDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"></property>
+	</bean>
+	<bean id="phoneDescDaoImpl" class="shop.dao.impl.PhoneDescDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"></property>
+	</bean>
+	<!-- Action -->
+	<bean id="userAction" class="shop.action.UserAction">
+		<property name="personService" ref="personService"></property>
+	</bean>
+	<bean id="adminAction" class="shop.action.AdminAction">
+		<property name="adminService" ref="adminService"></property>
+	</bean>
+	<bean id="goodsAction" class="shop.action.GoodsAction">
+		<property name="phoneService" ref="phoneService"></property>
+	</bean>
+	<bean id="brandAction" class="shop.action.BrandAction">
+		<property name="brandService" ref="brandService"></property>
+	</bean>
+	<bean id="imageAction" class="shop.action.ImageAction">
+		<property name="imageService" ref="imageService"></property>
+	</bean>
+</beans>

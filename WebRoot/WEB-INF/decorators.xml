@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<decorators defaultdir="/decorators">
+    <decorator name="main" page="/pages/index/tool/main.jsp">
+        <pattern>/pages/index/*</pattern>
+    </decorator>
+    <decorator name="adminmain" page="/pages/manager/tool/mainframe.jsp">
+        <pattern>/pages/manager/phone/*</pattern>
+        <pattern>/pages/manager/brand/*</pattern>
+        <pattern>/goods_*.action</pattern>
+        <pattern>/brand_*.action</pattern>
+        <pattern>/pages/manager/main.jsp</pattern>
+    </decorator>
+    <excludes>
+ 		<pattern>/pages/index/user/*</pattern>
+ 		<pattern>/pages/manager/tool/*</pattern>
+	</excludes> 
+</decorators>

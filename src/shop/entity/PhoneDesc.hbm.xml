@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="shop.entity">
+	<class name="PhoneDesc" table="t_phonedesc">
+		<id name="phonedescid" column="phonedescid"></id>
+		<property name="screenType" column="screenType"/>
+		<property name="resolution" column="resolution"/>
+		<property name="screensize" column="screensize"/>
+		<property name="PPI" column="PPI"/>
+		<property name="texture" column="texture"/>
+		<property name="color" column="color"/>
+		
+		<property name="internet" column="internet"/>
+		<property name="SIM" column="SIM"/>
+		<property name="GPS" column="GPS"/>
+		<property name="lshare" column="lshare"/>
+		
+		<property name="systems" column="systems"/>
+		<property name="core" column="core"/>
+		<property name="usertable" column="usertable"/>
+		<property name="CPUType" column="CPUType"/>
+		<property name="CPUHz" column="CPUHz"/>
+		<property name="GPUType" column="GPUType"/>
+		<property name="RAM" column="RAM"/>
+		<property name="ROM" column="ROM"/>
+		<property name="kuozhan" column="kuozhan"/>
+		
+		<property name="camera" column="camera"/>
+		<property name="pre" column="pre"/>
+		<property name="tlast" column="tlast"/>
+		
+		<property name="phoneid" column="phoneid"/>
+	</class>
+</hibernate-mapping>

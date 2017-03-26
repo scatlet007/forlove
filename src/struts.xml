@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="index" extends="struts-default,json-default">
+		<action name="user_*" class="userAction" method="{1}">
+			<result type="json"></result>
+			<result name="error">/index.jsp</result>
+			<result name="register">/pages/index/user/register.jsp</result>
+			<result name="logout">/pages/index/main.jsp</result>
+		</action>
+		
+		<action name="VerifyCodeServlet" class="shop.service.VerifyCodeServlet">
+			<result name="success" type="stream">
+				<param name="contentType">image/jpeg</param>
+				<param name="inputName">imageStream</param>
+				<param name="bufferSize">2049</param>
+			</result>
+		</action>
+	</package>
+	<package name="manager" extends="struts-default,json-default">
+		<action name="admin_*" class="adminAction" method="{1}">
+			<result type="json"></result>
+			<result name="toLogin">/pages/manager/admin/login.jsp</result>
+			<result name="logout">/pages/manager/admin/login.jsp</result>
+		</action>
+	</package>
+	<package name="goods" extends="struts-default,json-default">
+		<action name="goods_*" class="goodsAction" method="{1}">
+			<result type="json"></result>
+			<result name="addCellphone">/pages/manager/phone/addCellphone.jsp</result>
+			<result name="addPhone">/success.jsp</result>
+			<result name="getPhonesInfo">/pages/manager/phone/listPhone.jsp</result>
+			<result name="toAddPhoneDesc">/pages/manager/phone/addCellphoneDesc.jsp</result>
+			<result name="addPhoneDesc">/success.jsp</result>
+			<interceptor-ref name="fileUpload">
+				<param name="maximunSize">2*1000</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+	</package>
+	<package name="brand" extends="struts-default,json-default">
+		<action name="brand_*" class="brandAction" method="{1}">
+			<result type="json"></result>
+			<result name="toAddBrand">/pages/manager/brand/addBrand.jsp</result>
+			<result name="addSuccess">/pages/manager/brand/listBrand.jsp</result>
+			<result name="listPage">/pages/manager/brand/listBrand.jsp</result>
+			<result name="addError">/pages/manager/brand/addBrand.jsp</result>
+		</action>
+	</package>
+	<package name="image" extends="struts-default">
+		<action name="image_*" class="imageAction" method="{1}">
+			<interceptor-ref name="fileUpload">
+				<param name="maximunSize">2*1000</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/success.jsp</result>
+		</action>
+	</package>
+</struts>    
