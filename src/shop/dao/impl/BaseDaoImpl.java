@@ -1,7 +1,6 @@
 package shop.dao.impl;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 

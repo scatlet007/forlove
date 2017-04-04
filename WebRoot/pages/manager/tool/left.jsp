@@ -90,9 +90,9 @@ a:hover {
 			<div class="nav_content" id="one">
 				<ul>
 					<li><a href="brand_pageQuery.action">分类管理</a></li>
-					<li><a href="goods_getPhonesInfo.action">信息查询</a></li>
+					<li><a href="goods_listPhone.action">信息查询</a></li>
 					<li><a href="#">销量展示</a></li>
-					<li><a href="goods_toAddCellphone.action">添加手机信息</a></li>
+					<li><a href="goods_toAddPhone.action">添加手机信息</a></li>
 				</ul>
 			</div>
 			<div class="nav_item"

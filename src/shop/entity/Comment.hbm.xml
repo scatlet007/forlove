@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="shop.entity">
+	<class name="Comment" table="t_comment">
+		<id name="commentid" column="commentid"></id>
+		<property name="userid" column="userid"></property>
+		<property name="content" column="content"></property>
+		<property name="preComment" column="precomment"></property>
+		<property name="phoneid" column="phoneid"></property>
+	</class>
+</hibernate-mapping>

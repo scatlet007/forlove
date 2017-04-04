@@ -4,7 +4,7 @@
 <html>
 <head>
 
-<title>分类管理</title>
+<title>手机列表</title>
 <style type="text/css">
 .main_info {
 	width: 960px;
@@ -103,30 +103,35 @@ td {
 					<td
 						style="background-color:#2d2d2d;color:#fff;width:170px;text-align:center;">操作</td>
 				</tr>
-				<c:forEach var="item" items="${plist}">
+				<c:forEach var="item" items="${pagebean.list}">
 					<tr class="branditem">
 						<td style="text-align: left;">
-							<img style="width:50px;height:50px;" src="/shop/imgs/${item.imgname }">
+							<c:if test="${empty item.icon }">
+								<img style="width:50px;height:50px;" src="/shop/imgs/phone/mobile_phone.png">
+							</c:if>
+							<c:if test="${!empty item.icon }">
+								<img style="width:50px;height:50px;" src="${item.icon }">
+							</c:if>
 							&nbsp;
 							${item.title }
 						</td>
 						<td>
 							${item.price }
 						</td>
-						<td><a href="goods_toAddPhoneDesc?phoneid=${item.phoneid }">添加详细信息</a>
-							<a href="goods_toupdate?brandid=${item.phoneid }">修改</a> <a
-							href="goods_delete?brandid=${item.phoneid }">删除</a></td>
+						<td>
+							<a href="goods_toAddPhoneDesc.action?phoneid=${item.phoneid }">添加详细信息</a>
+							<a href="goods_toupdate.action?brandid=${item.phoneid }">修改</a> 
+							<a href="goods_delete.action?brandid=${item.phoneid }">删除</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>
 			<div class="numberBar">
-<%-- 				共[${pagebean.totalrecord }]条记录, 每页<input type="text" id="pagesize"
-					value="${pagebean.pagesize }"
-					onchange="gotopage(${pagebean.currentpage })" style="width: 30px"
-					maxlength="2">条, 共[${pagebean.totalpage }]页,
-				当前[${pagebean.currentpage }]页 &nbsp;&nbsp;&nbsp; <a
-					href="javascript:void(0)"
-					onclick="gotopage(${pagebean.previouspage })">上一页</a>
+				共[${pagebean.totalrecord }]条记录, 
+				每页<input type="text" id="pagesize" value="${pagebean.pagesize }" onchange="gotopage(${pagebean.currentpage })" style="width: 30px" maxlength="2">条,
+				共[${pagebean.totalpage }]页,
+				当前[${pagebean.currentpage }]页 &nbsp;&nbsp;&nbsp; 
+				<a href="javascript:void(0)" onclick="gotopage(${pagebean.previouspage })">上一页</a>
 				<c:forEach var="pagenum" items="${pagebean.pagebar}">
 					<c:if test="${pagenum==pagebean.currentpage}">
 						<font color="red">${pagenum }</font>
@@ -136,19 +141,17 @@ td {
 						<a href="javascript:void(0)" onclick="gotopage(${pagenum })">${pagenum }</a>
 					</c:if>
 				</c:forEach>
-				<a href="javascript:void(0)"
-					onclick="gotopage(${pagebean.nextpage })">下一页</a> <input
-					type="text" id="pagenum" style="width: 30px"> <input
-					type="button" value=" GO "
-					onclick="gotopage(document.getElementById('pagenum').value)"> --%>
+				<a href="javascript:void(0)" onclick="gotopage(${pagebean.nextpage })">下一页</a> 
+				<input type="text" id="pagenum" style="width: 30px"> 
+				<input type="button" value=" GO " onclick="gotopage(document.getElementById('pagenum').value)">
 			</div>
 		</div>
 	</div>
 	<script type="text/javascript">
-/*     	function gotopage(currentpage){  	
+    	function gotopage(currentpage){  	
     		var pagesize = document.getElementById("pagesize").value;
     		window.location.href = '${pageContext.request.contextPath}/brand_pageQuery.action?queryInfo.currentpage=' + currentpage + '&queryInfo.pagesize=' + pagesize;
-    	} */
+    	}
     </script>
 </body>
 </html>

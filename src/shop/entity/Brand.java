@@ -8,7 +8,7 @@ package shop.entity;
 public class Brand {
 	private String brandid;			//标识
 	private String brandname;		//品牌名
-	private String pid;				//上级id
+	private String parentid;		//上级id
 	
 	public String getBrandid() {
 		return brandid;
@@ -22,13 +22,11 @@ public class Brand {
 	public void setBrandname(String brandname) {
 		this.brandname = brandname;
 	}
-	public String getPid() {
-		return pid;
+	public String getParentid() {
+		return parentid;
 	}
-	public void setPid(String pid) {
-		this.pid = pid;
+	public void setParentid(String parentid) {
+		this.parentid = parentid;
 	}
 	
-	
-
 }

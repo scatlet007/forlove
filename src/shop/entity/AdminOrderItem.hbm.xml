@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="shop.entity">
+	<class name="AdminOrderItem" table="t_adminorderitem">
+		<id name="orderitemid" column="orderitemid"></id>
+		<property name="quantity" column="quantity"></property>
+		<property name="subtotal" column="subtotal"></property>
+		<property name="phoneid" column="phoneid"></property>
+		<property name="ptitle" column="ptitle"></property>
+		<property name="price" column="price"></property>
+		<property name="image" column="image"></property>
+		<property name="adminorderid" column="adminorderid"></property>
+		<property name="describtion" column="describtion"></property>
+	</class>
+</hibernate-mapping>

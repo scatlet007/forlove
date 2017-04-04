@@ -7,20 +7,19 @@ package shop.entity;
  */
 public class CollectionTag {
 	private String tagid;		//标识
-	private String name;	//名称
+	private String tagname;	//名称
 	private String userid;	//关联用户
-	
-	public String getTagId() {
+	public String getTagid() {
 		return tagid;
 	}
-	public void setTagId(String id) {
-		this.tagid = id;
+	public void setTagid(String tagid) {
+		this.tagid = tagid;
 	}
-	public String getName() {
-		return name;
+	public String getTagname() {
+		return tagname;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setTagname(String tagname) {
+		this.tagname = tagname;
 	}
 	public String getUserid() {
 		return userid;

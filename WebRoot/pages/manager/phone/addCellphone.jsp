@@ -50,59 +50,104 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="label_bar">
 			<strong>你当前的位置：</strong>[手机管理]>[添加手机信息]
 		</div>
-		<form action="goods_addPhone.action" method="post" enctype="multipart/form-data">
-			<span class="branditem">手机名<input type="text" name="phone.phonename" value=""/></span>
-			<span class="branditem">商品显示标题：<input type="text" name="phone.title" value=""/></span>
-			<span class="branditem">商品价格<input type="text" name="phone.price" value=""/></span>
-			<span class="branditem">归属分类
+		<form>
+			<span class="branditem">
+				手机名<input type="text" id="phonename" name="phone.phonename" value=""/>
+			</span>
+			<span class="branditem">
+				商品显示标题：<input type="text" id="title" name="phone.title" value=""/>
+			</span>
+			<span class="branditem">
+				商品价格<input type="text" id="price" name="phone.price" value=""/>
+			</span>
+			<span class="branditem">
+				归属分类
 				<select  id="parent">
-					<c:forEach var="been" items="${been }">
+					<c:forEach var="been" items="${listParent }">
 						<option value="${been.brandid }">${been.brandname }</option>
 					</c:forEach>
 				</select>
 				<span>
 					<select  id="child" name="phone.brandid">
-					<c:forEach var="been" items="${child }">
-						<option value="${been.brandid }">${been.brandname }</option>
-					</c:forEach>
-				</select>
+					</select>
 				</span>
 			</span>
-			<span class="branditem">显示图片：<input type="file" name="file" value=""/></span>
 			<span class="branditem">
-				<input type="submit" value="提交" style="width:40px;height:24px;" onmouseover="this.style.cursor='hand'"/>
+				<input type="button" onclick="add()" value="提交" style="width:40px;height:24px;" onmouseover="this.style.cursor='hand'"/>
 			</span>
 		</form>
 	</div>
 	<script type="text/javascript"
 		src="<%=basePath%>/js/jquery-1.8.0.min.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function(){
-			$("#parent").bind("change",function(){
-    			var pid=document.getElementById("parent");
-    			var value=pid.options[pid.selectedIndex].value;
-    			$.ajax({
-    				url:'/shop/goods_getChildBrand.action',
- 					data:{"pid":value},
- 					type:'post',
- 					dataType:'json',
- 					success:function(data){
- 						var p=document.getElementById("child");
- 						p.innerHTML="";
- 						for(var i=0;i<data.brandlist.length;i++)
- 						{
- 							var option=document.createElement("option");
- 							option.setAttribute("value", data.brandlist[i].brandid);
- 							option.innerHTML=data.brandlist[i].brandname;
- 							p.appendChild(option);
- 						}
- 						
- 					},
- 					error:function(data){
- 					}
-    			});
-    		});
-		});
+		function parent() {
+			alert(100);
+			$.ajax({
+				url:'/shop/brand_getParents.action',
+					data:{},
+					type:'post',
+					dataType:'json',
+					success:function(data){
+						var p=document.getElementById("parent");
+						p.innerHTML="";
+						for(var i=0;i<data.listParent.length;i++)
+						{
+							var option=document.createElement("option");
+							option.setAttribute("value", data.listParent[i].brandid);
+							option.innerHTML=data.listParent[i].brandname;
+							p.appendChild(option);
+						}
+						
+					},
+					error:function(data){
+					}
+			});
+		}
+		setTimeout("parent()", 2000);
+		$(document).ready(
+			function() {
+				$("#parent").bind("change",function() {
+					var pid = document.getElementById("parent");
+					var value = pid.options[pid.selectedIndex].value;
+					$.ajax({
+							url : '/shop/brand_getChild.action',
+							data : {
+										"parentid" : value
+								},
+							type : 'post',
+							dataType : 'json',
+							success : function(data) {
+								var p = document.getElementById("child");
+								p.innerHTML = "";
+								for (var i = 0; i < data.listChild.length; i++) {
+									var option = document.createElement("option");
+									option.setAttribute("value",data.listChild[i].brandid);
+									option.innerHTML = data.listChild[i].brandname;
+									p.appendChild(option);
+							}
+						}
+					});
+				});
+				
+			});
+		function add() {
+			$.ajax({
+					url : '/shop/goods_add.action',
+					data : {
+						"phone.phonename":$("#phonename").val(),
+						"phone.title":$("#title").val(),
+						"phone.price":$("#price").val(),
+						"phone.brandid":$("#child").find("option:selected").val(),
+					},
+					type : 'post',
+					dataType : 'json',
+					success : function(data) {
+						alert("ok!");
+					},
+					error : function(data) {
+					}
+				});
+			}
 	</script>
 </body>
 </html>

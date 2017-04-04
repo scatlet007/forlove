@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="shop.entity">
+	<class name="AdminOrder" table="t_adminorder">
+		<id name="orderid" column="orderid"></id>
+		<property name="ordertime" column="ordertime"></property>
+		<property name="total" column="total"></property>
+		<property name="address" column="address"></property>
+		<property name="adminid" column="adminid"></property>
+	</class>
+</hibernate-mapping>

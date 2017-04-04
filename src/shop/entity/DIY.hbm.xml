@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="shop.entity">
+	<class name="DIY" table="t_DIY">
+		<id name="systemid" column="systemid"></id>
+		<property name="name" column="name"></property>
+		<property name="core" column="core"></property>
+		<property name="usertable" column="usertable"></property>
+		<property name="CPUType" column="CPUType"></property>
+		<property name="CPUHz" column="CPUHz"></property>
+		<property name="GPUType" column="GPUType"></property>
+		<property name="RAM" column="RAM"></property>
+		<property name="ROM" column="ROM"></property>
+		<property name="isextend" column="isextend"></property>
+		<property name="extend" column="extend"></property>
+		<property name="phoneid" column="phoneid"></property>
+	</class>
+</hibernate-mapping>

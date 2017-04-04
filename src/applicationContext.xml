@@ -46,64 +46,140 @@
 	
 	<!-- Dao注入 -->
 	<bean id="baseDaoImpl" class="shop.dao.impl.BaseDaoImpl">
-		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-	<bean id="personDaoImpl" class="shop.dao.impl.PersonDaoImpl">
-		<property name="baseDao" ref="baseDaoImpl"></property>
-	</bean>
-	<bean id="personService" class="shop.service.PersonService">
-		<property name="personDaoImpl" ref="personDaoImpl"></property>
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	<bean id="adminDaoImpl" class="shop.dao.impl.AdminDaoImpl">
-		<property name="baseDao" ref="baseDaoImpl"></property>
+		<property name="baseDao" ref="baseDaoImpl"/>
 	</bean>
-	<bean id="adminService" class="shop.service.AdminService">
-		<property name="adminDao" ref="adminDaoImpl"></property>
+	<bean id="adminOrderDaoImpl" class="shop.dao.impl.AdminOrderDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"/>
 	</bean>
-	<bean id="phoneDaoImpl" class="shop.dao.impl.PhoneDaoImpl">
-		<property name="baseDao" ref="baseDaoImpl"></property>
-	</bean>
-	<bean id="phoneService" class="shop.service.PhoneService">
-		<property name="phoneDao" ref="phoneDaoImpl"></property>
-		<property name="brandDao" ref="brandDaoImpl"></property>
-		<property name="imageDao" ref="imageDaoImpl"></property>
-		<property name="imgsDao" ref="imgsDaoImpl"></property>
-		<property name="phoneDescDao" ref="phoneDescDaoImpl"></property>
+	<bean id="adminOrderItemDaoImpl" class="shop.dao.impl.AdminOrderItemDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"/>
 	</bean>
 	<bean id="brandDaoImpl" class="shop.dao.impl.BrandDaoImpl">
-		<property name="baseDao" ref="baseDaoImpl"></property>
+		<property name="baseDao" ref="baseDaoImpl"/>
 	</bean>
-	<bean id="brandService" class="shop.service.BrandService">
-		<property name="brandDao" ref="brandDaoImpl"></property>
+	<bean id="cameraDaoImpl" class="shop.dao.impl.CameraDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"/>
+	</bean>
+	<bean id="carItemDaoImpl" class="shop.dao.impl.CarItemDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"/>
+	</bean>
+	<bean id="collectionDaoImpl" class="shop.dao.impl.CollectionDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"/>
+	</bean>
+	<bean id="collectionTagDaoImpl" class="shop.dao.impl.CollectionTagDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"/>
+	</bean>
+	<bean id="commentDaoImpl" class="shop.dao.impl.CommentDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"/>
+	</bean>
+	<bean id="diyDaoImpl" class="shop.dao.impl.DIYDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"/>
 	</bean>
 	<bean id="imageDaoImpl" class="shop.dao.impl.ImageDaoImpl">
-		<property name="baseDao" ref="baseDaoImpl"></property>
+		<property name="baseDao" ref="baseDaoImpl"/>
+	</bean>
+	<bean id="internetDaoImpl" class="shop.dao.impl.InternetDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"/>
+	</bean>
+	<bean id="netItemDaoImpl" class="shop.dao.impl.NetItemDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"/>
+	</bean>
+	<bean id="orderDaoImpl" class="shop.dao.impl.OrderDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"/>
+	</bean>
+	<bean id="orderItemImpl" class="shop.dao.impl.OrderItemDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"/>
+	</bean>
+	<bean id="personDaoImpl" class="shop.dao.impl.PersonDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"/>
+	</bean>
+	<bean id="phoneDaoImpl" class="shop.dao.impl.PhoneDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"/>
+	</bean>
+	<bean id="screenDaoImpl" class="shop.dao.impl.ScreenDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"/>
+	</bean>
+	<bean id="supportDaoImpl" class="shop.dao.impl.SupportDaoImpl">
+		<property name="baseDao" ref="baseDaoImpl"/>
+	</bean>
+	<!-- Dao注入 END -->
+	
+	<!-- service-->
+	<bean id="adminOrderService" class="shop.service.AdminOrderService">
+		<property name="adminOrderDao" ref="adminOrderDaoImpl"/>
+		<property name="adminOrderItemDao" ref="adminOrderItemDaoImpl"/>
+	</bean>
+	<bean id="adminService" class="shop.service.AdminService">
+		<property name="adminDao" ref="adminDaoImpl"/>
+	</bean>
+	<bean id="brandService" class="shop.service.BrandService">
+		<property name="brandDao" ref="brandDaoImpl"/>
+	</bean>
+	<bean id="carItemService" class="shop.service.CarItemService">
+		<property name="carItemDao" ref="carItemDaoImpl"/>
+	</bean>
+	<bean id="collectionService" class="shop.service.CollectionService">
+		<property name="collectionDao" ref="collectionDaoImpl"/>
+		<property name="collectionTagDao" ref="collectionTagDaoImpl"/>
+	</bean>
+	<bean id="commentService" class="shop.service.CommentService">
+		<property name="commentDao" ref="commentDaoImpl"/>
 	</bean>
 	<bean id="imageService" class="shop.service.ImageService">
-		<property name="imageDao" ref="imageDaoImpl"></property>
-		<property name="imgsDao" ref="imgsDaoImpl"></property>
+		<property name="imageDao" ref="imageDaoImpl"/>
 	</bean>
-	<bean id="imgsDaoImpl" class="shop.dao.impl.ImgsDaoImpl">
-		<property name="baseDao" ref="baseDaoImpl"></property>
+	<bean id="orderService" class="shop.service.OrderService">
+		<property name="orderDao" ref="orderDaoImpl"/>
+		<property name="orderItemDao" ref="orderItemImpl"/>
 	</bean>
-	<bean id="phoneDescDaoImpl" class="shop.dao.impl.PhoneDescDaoImpl">
-		<property name="baseDao" ref="baseDaoImpl"></property>
+	<bean id="personService" class="shop.service.PersonService">
+		<property name="personDaoImpl" ref="personDaoImpl"/>
 	</bean>
-	<!-- Action -->
-	<bean id="userAction" class="shop.action.UserAction">
-		<property name="personService" ref="personService"></property>
+	<bean id="phoneService" class="shop.service.PhoneService">
+		<property name="cameraDao" ref="cameraDaoImpl"/>
+		<property name="diyDao" ref="diyDaoImpl"/>
+		<property name="internetDao" ref="internetDaoImpl"/>
+		<property name="netItemDao" ref="netItemDaoImpl"/>
+		<property name="phoneDao" ref="phoneDaoImpl"/>
+		<property name="screenDao" ref="screenDaoImpl"/>
+		<property name="supportDao" ref="supportDaoImpl"/>
 	</bean>
+	<!-- service end -->
+	
+	<!-- action -->
 	<bean id="adminAction" class="shop.action.AdminAction">
-		<property name="adminService" ref="adminService"></property>
+		<property name="adminService" ref="adminService"/>
 	</bean>
-	<bean id="goodsAction" class="shop.action.GoodsAction">
-		<property name="phoneService" ref="phoneService"></property>
+	<bean id="adminOrderAction" class="shop.action.AdminOrderAction">
+		<property name="adminOrderService" ref="adminOrderService"/>
 	</bean>
 	<bean id="brandAction" class="shop.action.BrandAction">
-		<property name="brandService" ref="brandService"></property>
+		<property name="brandService" ref="brandService"/>
+	</bean>
+	<bean id="carItemAction" class="shop.action.CarItemAction">
+		<property name="carItemService" ref="carItemService"/>
+	</bean>
+	<bean id="collectionAction" class="shop.action.CollectionAction">
+		<property name="collectionService" ref="collectionService"/>
+	</bean>
+	<bean id="commentAction" class="shop.action.CommentAction">
+		<property name="commentService" ref="commentService"/>
+	</bean>
+	<bean id="goodsAction" class="shop.action.GoodsAction">
+		<property name="phoneService" ref="phoneService"/>
 	</bean>
 	<bean id="imageAction" class="shop.action.ImageAction">
-		<property name="imageService" ref="imageService"></property>
+		<property name="imageService" ref="imageService"/>
 	</bean>
+	<bean id="orderAction" class="shop.action.OrderAction">
+		<property name="orderService" ref="orderService"/>
+	</bean>
+	<bean id="userAction" class="shop.action.UserAction">
+		<property name="personService" ref="personService"/>
+	</bean>
+	<!-- action end -->
 </beans>

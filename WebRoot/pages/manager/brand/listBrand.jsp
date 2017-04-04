@@ -105,7 +105,7 @@ td {
 			</button>
 		</div>
 		<div class="addcategoryhref">
-			<a href="brand_toAddBrand.action">添加一级分类</a>
+			<a href="brand_toAddBrand1.action">添加一级分类</a>
 		</div>
 		<div class="info_table">
 			<table>
@@ -118,21 +118,25 @@ td {
 						style="background-color:#2d2d2d;color:#fff;width:170px;text-align:center;">操作</td>
 				</tr>
 				<c:forEach var="item" items="${pagebean.list}">
-					<c:if test="${item.brandid==item.pid }">
+					
+					<c:if test="${item.brandid==item.parentid }">
 						<tr class="brandtitle">
 							<td>${item.brandname }</td>
 							<td></td>
-							<td><a href="goods_toupdate?brandid=${item.brandid }">修改</a>
-								<a href="goods_delete?brandid=${item.brandid }">删除</a></td>
+							<td>
+								<a href="brand_toAddBrand2.action?brand.parentid=${item.parentid }">添加二级分类</a>
+								<a href="brand_toUpdate.action?brand.brandid=${item.brandid }">修改</a>
+								<a href="javascript:deleteBrand('${item.brandid }')">删除</a></td>
 						</tr>
 					</c:if>
-					<c:if test="${item.brandid!=item.pid }">
+					<c:if test="${item.brandid!=item.parentid }">
 						<tr class="branditem">
 							<td>${item.brandname }</td>
 							<td></td>
-							<td><a href="goods_toaddBrand?brandid=${item.pid }">添加二级分类</a>
-								<a href="goods_toupdate?brandid=${item.brandid }">修改</a> <a
-								href="goods_delete?brandid=${item.brandid }">删除</a></td>
+							<td><a href="brand_toAddBrand2.action?brand.parentid=${item.parentid }">添加二级分类</a>
+								<a href="brand_toUpdate.action?brand.brandid=${item.brandid }">修改</a>
+								<a href="javascript:deleteBrand('${item.brandid }')">删除</a>
+							</td>
 						</tr>
 					</c:if>
 
@@ -163,11 +167,40 @@ td {
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="/js/jquery.jqGrid.min.js"></script>
+	<script type="text/javascript" src="/js/grid.locale-cn.js"></script>
+	<script type="text/javascript" src="/js/editor.js"></script>
 	<script type="text/javascript">
     	function gotopage(currentpage){  	
     		var pagesize = document.getElementById("pagesize").value;
     		window.location.href = '${pageContext.request.contextPath}/brand_pageQuery.action?queryInfo.currentpage=' + currentpage + '&queryInfo.pagesize=' + pagesize;
     	}
-    </script>
+   
+		function deleteBrand(brandid) {
+			brandid=brandid+"";
+			var flag = confirm("确定要删除吗？");
+			if (flag == true) {
+				remove(brandid);
+			} else {
+				console.log("取消一次删除操作！");
+			}
+		}
+		function remove(brandid) {
+			$.ajax({
+				url : '/shop/brand_delete.action',
+				data : {
+					"brandid" : brandid
+				},
+				type : 'post',
+				dataType : 'json',
+				success : function(data) {
+					window.location.reload();
+				},
+				error : function(data) {
+				}
+			});
+		}
+	</script>
 </body>
 </html>

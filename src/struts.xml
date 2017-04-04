@@ -1,7 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-	<package name="index" extends="struts-default,json-default">
+    <!-- 设置开发模式，开发时输出更多的错误信息 -->
+    <constant name="struts.devMode" value="true"></constant>
+    <!-- 修改ui主题为简单主题 -->
+    <constant name="struts.ui.theme" value="simple"></constant>
+    <!-- 设置浏览器是否缓存静态内容。默认值为true(生产环境下使用),开发阶段最好关闭 -->
+    <constant name="struts.serve.static.browserCache" value="false"/>
+    <!-- 是否允许在OGNL表达式中调用静态方法，默认值为false -->
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
+
+    <!-- 配置全局 -->
+    <package name="global" namespace="/" extends="struts-default,json-default">
+        <interceptors>
+            <!-- 先定义拦截器 -->
+            <interceptor name="LoginChecker" class="shop.utils.AuthorizationInterceptor"/>
+            <!-- 加到自己设置的拦截器栈里边去 -->
+            <interceptor-stack name="myStack">
+            	<interceptor-ref name="LoginChecker"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="myStack"></default-interceptor-ref>
+        <global-results>
+            <!-- 返回json -->
+            <result type="json" name="json">
+                <!--json data 名称 -->
+                <param name="root">json</param>
+                <!--去掉空参数 -->
+                <param name="excludeNullProperties">true</param>
+                <!--是否忽略继承关系 -->
+                <param name="ignoreHierarchy">false</param>
+            </result>
+            <result name="login_redir">/index.jsp</result>
+        </global-results>
+		
 		<action name="user_*" class="userAction" method="{1}">
 			<result type="json"></result>
 			<result name="error">/index.jsp</result>
@@ -15,45 +49,52 @@
 				<param name="inputName">imageStream</param>
 				<param name="bufferSize">2049</param>
 			</result>
+			<interceptor-ref name="defaultStack"/>
 		</action>
-	</package>
-	<package name="manager" extends="struts-default,json-default">
+		
 		<action name="admin_*" class="adminAction" method="{1}">
 			<result type="json"></result>
 			<result name="toLogin">/pages/manager/admin/login.jsp</result>
 			<result name="logout">/pages/manager/admin/login.jsp</result>
 		</action>
-	</package>
-	<package name="goods" extends="struts-default,json-default">
+		
 		<action name="goods_*" class="goodsAction" method="{1}">
-			<result type="json"></result>
-			<result name="addCellphone">/pages/manager/phone/addCellphone.jsp</result>
-			<result name="addPhone">/success.jsp</result>
-			<result name="getPhonesInfo">/pages/manager/phone/listPhone.jsp</result>
+			<result name="json" type="json"></result>
+			<result name="toAddPhone">/pages/manager/phone/addCellphone.jsp</result>
+			<result name="success">/success.jsp</result>
+			<result name="listPhone">/pages/manager/phone/listPhone.jsp</result>
 			<result name="toAddPhoneDesc">/pages/manager/phone/addCellphoneDesc.jsp</result>
-			<result name="addPhoneDesc">/success.jsp</result>
 			<interceptor-ref name="fileUpload">
 				<param name="maximunSize">2*1000</param>
 			</interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="defaultStack"/>
 		</action>
-	</package>
-	<package name="brand" extends="struts-default,json-default">
+		<action name="carItem_*" class="carItemAction" method="{1}">
+		</action>
+		<action name="collection_*" class="collectionAction" method="{1}">
+		</action>
+		
 		<action name="brand_*" class="brandAction" method="{1}">
 			<result type="json"></result>
-			<result name="toAddBrand">/pages/manager/brand/addBrand.jsp</result>
-			<result name="addSuccess">/pages/manager/brand/listBrand.jsp</result>
+			<result name="json" type="json"></result>
+			<result name="toAddBrand1">/pages/manager/brand/addBrand.jsp</result>
+			<result name="toAddBrand2">/pages/manager/brand/addBrands.jsp</result>
+			<result name="toUpdate">/pages/manager/brand/updateBrand.jsp</result>
 			<result name="listPage">/pages/manager/brand/listBrand.jsp</result>
 			<result name="addError">/pages/manager/brand/addBrand.jsp</result>
 		</action>
-	</package>
-	<package name="image" extends="struts-default">
+		
 		<action name="image_*" class="imageAction" method="{1}">
 			<interceptor-ref name="fileUpload">
 				<param name="maximunSize">2*1000</param>
 			</interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="defaultStack"/>
 			<result name="success">/success.jsp</result>
 		</action>
-	</package>
+		
+		<action name="order_*" class="orderAction" method="{1}">
+		</action>
+		<action name="adminOrder_*" class="adminOrderAction" method="{1}">
+		</action>
+    </package>
 </struts>    

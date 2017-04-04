@@ -11,6 +11,8 @@ public class Comment {
 	private String userid;		//用户id
 	private String content;		//评论内容
 	private String preComment;	//前置评论
+	private String phoneid;
+	private Comment pre;
 	
 	public String getCommentid() {
 		return commentid;
@@ -35,6 +37,18 @@ public class Comment {
 	}
 	public void setPreComment(String preComment) {
 		this.preComment = preComment;
+	}
+	public String getPhoneid() {
+		return phoneid;
+	}
+	public void setPhoneid(String phoneid) {
+		this.phoneid = phoneid;
+	}
+	public Comment getPre() {
+		return pre;
+	}
+	public void setPre(Comment pre) {
+		this.pre = pre;
 	}
 	
 	

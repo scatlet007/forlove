@@ -14,7 +14,13 @@ public interface BrandDao {
 	 */
 	public boolean add(Brand brand);
 	
+	public void delete(String brandid);
+	
+	public void update(Brand brand);
+	
 	public QueryResult<Brand> pageQuery(int startindex,int pagesize);
+	
+	public QueryResult<Brand> pageQuery(String parent,int startindex,int pagesize);
 	
 	public QueryResult<Brand> getAll();
 	

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="shop.entity">
+	<class name="CarItem" table="t_caritem">
+		<id	name="caritemid" column="caritemid"></id>
+		<property name="userid" column="userid"/>
+		<property name="phoneid" column="phoneid"/>
+		<property name="quantity" column="quantity"/>
+		<property name="orders" column="orders"/>
+	</class>
+</hibernate-mapping>

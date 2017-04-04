@@ -1,82 +1,148 @@
 package shop.action;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
-import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
+import org.springframework.http.HttpRequest;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import shop.entity.Brand;
-import shop.entity.Image;
+import shop.entity.Camera;
+import shop.entity.DIY;
+import shop.entity.Internet;
+import shop.entity.NetItem;
+import shop.entity.PagesBean;
 import shop.entity.Phone;
-import shop.entity.PhoneDesc;
-import shop.indexdomin.PhoneItem;
+import shop.entity.QueryInfo;
+import shop.entity.Screen;
+import shop.entity.Support;
 import shop.service.PhoneService;
 import shop.utils.Common;
+import shop.view.model.PhoneListItem;
 
 public class GoodsAction extends ActionSupport {
 	private PhoneService phoneService;
+	private Phone phone;
+	private Camera camera;
+	private DIY diy;
+	private Internet internet;
+	private NetItem item;
+	private Screen screen;
+	private Support support;
+	private PagesBean<PhoneListItem> pagesBean;
+	private QueryInfo queryInfo;
+	public Phone getPhone() 
+	{
+		return phone;
+	}
 
-	public void setPhoneService(PhoneService phoneService) {
+	public void setPhone(Phone phone) 
+	{
+		this.phone = phone;
+	}
+
+	public Camera getCamera() 
+	{
+		return camera;
+	}
+
+	public void setCamera(Camera camera) 
+	{
+		this.camera = camera;
+	}
+
+	public DIY getDiy() 
+	{
+		return diy;
+	}
+
+	public void setDiy(DIY diy) 
+	{
+		this.diy = diy;
+	}
+
+	public Internet getInternet() 
+	{
+		return internet;
+	}
+
+	public void setInternet(Internet internet) 
+	{
+		this.internet = internet;
+	}
+
+	public NetItem getItem() 
+	{
+		return item;
+	}
+
+	public void setItem(NetItem item) 
+	{
+		this.item = item;
+	}
+
+	public Screen getScreen() 
+	{
+		return screen;
+	}
+
+	public void setScreen(Screen screen) 
+	{
+		this.screen = screen;
+	}
+
+	public Support getSupport() 
+	{
+		return support;
+	}
+
+	public void setSupport(Support support) 
+	{
+		this.support = support;
+	}
+
+	public PagesBean<PhoneListItem> getPagesBean() {
+		return pagesBean;
+	}
+
+	public void setPagesBean(PagesBean<PhoneListItem> pagesBean) {
+		this.pagesBean = pagesBean;
+	}
+
+	public QueryInfo getQueryInfo() {
+		return queryInfo;
+	}
+
+	public void setQueryInfo(QueryInfo queryInfo) {
+		this.queryInfo = queryInfo;
+	}
+
+	public void setPhoneService(PhoneService phoneService) 
+	{
 		this.phoneService = phoneService;
 	}
 	
-	/**
-	 * 转向手机信息添加界面
-	 * @return
-	 */
-	public String toAddCellphone()
+	public String toAddPhone()
 	{
-		List<Brand> been=new ArrayList<Brand>();
-		been=phoneService.getBrand();
-		List<Brand> child=phoneService.getChildBrand(been.get(0).getBrandid());
-		ServletActionContext.getRequest().setAttribute("been", been);
-		ServletActionContext.getRequest().setAttribute("child", child);
-		return "addCellphone";
+		return "toAddPhone";
 	}
 	
-	public String getChildBrand()
+	public String add()
 	{
-		String id=ServletActionContext.getRequest().getParameter("pid");
-		brandlist=phoneService.getChildBrand(id);
-		ServletActionContext.getRequest().setAttribute("size", brandlist.size());
-		return SUCCESS;
-	}
-	public String addPhone() throws Exception{
-		String realpath=ServletActionContext.getServletContext().getRealPath("/imgs");
-		File uploadfile=new File(realpath);
-		if(!file.exists())
-			file.mkdirs();
-		System.out.println(fileFileName);
-		String suffix="";
-		suffix=fileFileName.substring(fileFileName.lastIndexOf("."));
-		fileFileName=Common.getId("image")+suffix;
-		FileUtils.copyFile(file, new File(uploadfile,fileFileName));
-		Image image=new Image();
-		String imageid=Common.getId("image");
-		image.setImageid(imageid);
-		image.setImagename(fileFileName);
-		image.setImgurl(realpath+"/"+fileFileName);
-		
-		String phoneid=Common.getId("phone");
-		phone.setPhoneid(phoneid);
-		phoneService.addPhone(phone);
-		phoneService.addImage(image);
-		phoneService.bind(phoneid, imageid);
-		return "addPhone";
+		this.phoneService.save(phone);
+		return "json";
 	}
 	
-	public String getPhonesInfo()
+	public String listPhone()
 	{
-		plist=phoneService.getAll();
-		return "getPhonesInfo";
+		QueryInfo info=new QueryInfo();
+		if(queryInfo!=null)
+			info=queryInfo;
+		PagesBean<PhoneListItem> bean=new PagesBean<PhoneListItem>();
+		bean=phoneService.getPhoneList(info);
+		ServletActionContext.getRequest().setAttribute("pagebean", bean);
+		return "listPhone";
 	}
 	
 	public String toAddPhoneDesc()
@@ -86,94 +152,4 @@ public class GoodsAction extends ActionSupport {
 		request.setAttribute("phoneid", phoneid);
 		return "toAddPhoneDesc";
 	}
-	public String addPhoneDesc()
-	{
-		String str="";
-		for(String item:g4)
-		{
-			str=str+"4G:"+item+"#";
-		}
-		for(String item:g3)
-		{
-			str=str+"3G:"+item+"#";
-		}
-		phoneDesc.setPhonedescid(Common.getId("phoneDesc"));
-		phoneDesc.setInternet(str);
-		System.out.println(phoneDesc.toString());
-		phoneService.addPhoneDesc(phoneDesc);
-		return "addPhoneDesc";
-	}
-	public GoodsAction()
-	{
-		brandlist=new ArrayList<Brand>();
-		plist=new ArrayList<PhoneItem>();
-	}
-	
-	private Phone phone;
-	private PhoneDesc phoneDesc;
-	public String[] g4;
-	public String[] g3;
-	private List<PhoneItem> plist;
-	private List<Brand> brandlist;
-	private File file;
-	private String fileFileName;
-	private String fileContentType;
-
-	public Phone getPhone() {
-		return phone;
-	}
-
-	public void setPhone(Phone phone) {
-		this.phone = phone;
-	}
-
-	public PhoneDesc getPhoneDesc() {
-		return phoneDesc;
-	}
-
-	public void setPhoneDesc(PhoneDesc phoneDesc) {
-		this.phoneDesc = phoneDesc;
-	}
-
-	public List<PhoneItem> getPlist() {
-		return plist;
-	}
-
-	public void setPlist(List<PhoneItem> plist) {
-		this.plist = plist;
-	}
-
-	public List<Brand> getBrandlist() {
-		return brandlist;
-	}
-
-	public void setBrandlist(List<Brand> brandlist) {
-		this.brandlist = brandlist;
-	}
-
-	public File getFile() {
-		return file;
-	}
-
-	public void setFile(File file) {
-		this.file = file;
-	}
-
-	public String getFileFileName() {
-		return fileFileName;
-	}
-
-	public void setFileFileName(String fileFileName) {
-		this.fileFileName = fileFileName;
-	}
-
-	public String getFileContentType() {
-		return fileContentType;
-	}
-
-	public void setFileContentType(String fileContentType) {
-		this.fileContentType = fileContentType;
-	}
-
-	
 }

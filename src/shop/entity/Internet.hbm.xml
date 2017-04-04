@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="shop.entity">
+	<class name="Internet" table="t_internet">
+		<id name="internetid" column="internetid"></id>
+		<property name="SIM" column="SIM"></property>
+		<property name="WLAN" column="WLAN"></property>
+		<property name="GPS" column="GPS"></property>
+		<property name="share" column="share"></property>
+		<property name="phoneid" column="phoneid"></property>
+	</class>
+</hibernate-mapping>

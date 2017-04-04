@@ -4,6 +4,6 @@
 	<class name="Brand" table="t_brand">
 		<id name="brandid" column="brandid"></id>
 		<property name="brandname" column="brandname"/>
-		<property name="pid" column="pid"/>
+		<property name="parentid" column="parentid"/>
 	</class>
 </hibernate-mapping>

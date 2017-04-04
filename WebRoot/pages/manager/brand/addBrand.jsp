@@ -44,21 +44,45 @@
 		<div class="label_bar">
 			<strong>你当前的位置：</strong>[手机管理]>[分类管理]>[分类添加]
 		</div>
-		<form action="brand_addBrand.action" method="post">
-			<span class="branditem">一级分类：<input type="text" disabled="disabled" name="brand.pid" value=""/></span>
-			<span class="branditem">
-				<input type="hidden" name="brand.brandid" id="brandid" value=""/>
-				子分类名：<input type="text" name="brand.brandname"/>
-			</span>
-			<span class="branditem">子分类描述：<textarea></textarea></span>
-			<span class="branditem">
-				<input type="submit" value="提交" style="width:40px;height:24px;" onmouseover="this.style.cursor='hand'"/>
-			</span>
+		<form>
+			<fieldset style="width:95%">
+				<legend>分类编辑 </legend>
+				<span class="branditem">
+					分类名：<input type="text" id="brandname" name="brand.brandname" />
+				</span>
+				<span class="branditem">
+					分类描述：<textarea></textarea>
+				</span> 
+				<span class="branditem">
+					<input type="button" onclick="add()" value="提交" style="width:40px;height:24px;" onmouseover="this.style.cursor='hand'" />
+				</span>
+			</fieldset>
 		</form>
 	</div>
+	<script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>
 	<script type="text/javascript">
-		var brandid=document.getElementById("brandid");
-		brandid.setAttribute("value", "B"+new Date().getTime());
+	
+		function add() {
+			var brandname = $("#brandname").val();
+			
+			var str = new Date().getTime();
+			var value = "B" + str;
+			$.ajax({
+				url : '/shop/brand_addBrand.action',
+				data : {
+					"brand.brandid" :value,
+					"brand.brandname" : brandname,
+					"brand.parentid" : value
+				},
+				type : 'post',
+				dataType : 'json',
+				success : function(data) {
+					window.location.href="brand_pageQuery.action";
+				},
+				error : function(data) {
+				}
+			});
+		}
 	</script>
 </body>
 </html>

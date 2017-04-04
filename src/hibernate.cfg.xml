@@ -9,13 +9,26 @@
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
-        <mapping resource="shop/entity/Person.hbm.xml"/>
+        
         <mapping resource="shop/entity/Admin.hbm.xml"/>
+        <mapping resource="shop/entity/AdminOrder.hbm.xml"/>
+        <mapping resource="shop/entity/AdminOrderItem.hbm.xml"/>
         <mapping resource="shop/entity/Brand.hbm.xml"/>
+        <mapping resource="shop/entity/Camera.hbm.xml"/>
+        <mapping resource="shop/entity/CarItem.hbm.xml"/>
+        <mapping resource="shop/entity/Collection.hbm.xml"/>
+        <mapping resource="shop/entity/CollectionTag.hbm.xml"/>
+        <mapping resource="shop/entity/Comment.hbm.xml"/>
+        <mapping resource="shop/entity/DIY.hbm.xml"/>
         <mapping resource="shop/entity/Image.hbm.xml"/>
-        <mapping resource="shop/entity/Imgs.hbm.xml"/>
+        <mapping resource="shop/entity/Internet.hbm.xml"/>
+        <mapping resource="shop/entity/NetItem.hbm.xml"/>
+        <mapping resource="shop/entity/Order.hbm.xml"/>
+        <mapping resource="shop/entity/OrderItem.hbm.xml"/>
+        <mapping resource="shop/entity/Person.hbm.xml"/>
         <mapping resource="shop/entity/Phone.hbm.xml"/>
-        <mapping resource="shop/entity/PhoneDesc.hbm.xml"/>
+        <mapping resource="shop/entity/Screen.hbm.xml"/>
+        <mapping resource="shop/entity/Support.hbm.xml"/>
     </session-factory>
 
 </hibernate-configuration>

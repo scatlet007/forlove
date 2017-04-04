@@ -5,18 +5,17 @@ package shop.entity;
  * @author letmetria
  *
  */
-public class CatItem {
-	private String carid;		//标识
+public class CarItem {
+	private String caritemid;		//标识
 	private String userid;	//关联用户
 	private String phoneid;	//商品标识
 	private int quantity;	//数量
-	private int orderBy;	//序号，用于排序
-	
-	public String getCarid() {
-		return carid;
+	private int orders;	//序号，用于排序
+	public String getCaritemid() {
+		return caritemid;
 	}
-	public void setCarid(String carid) {
-		this.carid = carid;
+	public void setCaritemid(String caritemid) {
+		this.caritemid = caritemid;
 	}
 	public String getUserid() {
 		return userid;
@@ -36,11 +35,11 @@ public class CatItem {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public int getOrderBy() {
-		return orderBy;
+	public int getOrders() {
+		return orders;
 	}
-	public void setOrderBy(int orderBy) {
-		this.orderBy = orderBy;
+	public void setOrders(int orders) {
+		this.orders = orders;
 	}
 	
 }

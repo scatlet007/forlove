@@ -5,5 +5,7 @@
 		<id name="imageid" column="imageid"></id>
 		<property name="imagename" column="imagename"/>
 		<property name="imgurl" column="imgurl"/>
+		<property name="suffix" column="suffix"/>
+		<property name="phoneid" column="phoneid"/>
 	</class>
 </hibernate-mapping>

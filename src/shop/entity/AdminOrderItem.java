@@ -8,9 +8,8 @@ public class AdminOrderItem {
 	private String ptitle;		//手机标题
 	private float price;		//单价
 	private String image;		//小图地址
-	private String orderid;		//所属订单
+	private String adminorderid;		//所属订单
 	private String describtion;	//描述
-	
 	public String getOrderitemid() {
 		return orderitemid;
 	}
@@ -53,11 +52,11 @@ public class AdminOrderItem {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public String getOrderid() {
-		return orderid;
+	public String getAdminorderid() {
+		return adminorderid;
 	}
-	public void setOrderid(String orderid) {
-		this.orderid = orderid;
+	public void setAdminorderid(String adminorderid) {
+		this.adminorderid = adminorderid;
 	}
 	public String getDescribtion() {
 		return describtion;
@@ -65,4 +64,5 @@ public class AdminOrderItem {
 	public void setDescribtion(String describtion) {
 		this.describtion = describtion;
 	}
+	
 }

@@ -1,26 +1,34 @@
 package shop.service;
 
+import java.util.List;
+
 import shop.dao.ImageDao;
-import shop.dao.ImgsDao;
+import shop.entity.Image;
 
 public class ImageService {
 	private ImageDao imageDao;
-	private ImgsDao imgsDao;
-
-	public ImgsDao getImgsDao() {
-		return imgsDao;
-	}
-
-	public void setImgsDao(ImgsDao imgsDao) {
-		this.imgsDao = imgsDao;
-	}
 
 	public void setImageDao(ImageDao imageDao) {
 		this.imageDao = imageDao;
 	}
 	
-	public void bind(String phoneid,String imageid)
+	public void addImage(Image image)
 	{
-		imgsDao.bind(phoneid, imageid);
+		imageDao.add(image);
+	}
+	
+	public void remove(String imageid)
+	{
+		imageDao.remove(imageid);
+	}
+	
+	public Image getImage(String imageid)
+	{
+		return imageDao.getImage(imageid);
+	}
+	
+	public List<Image> get(String phoneid)
+	{
+		return imageDao.get(phoneid);
 	}
 }
